@@ -1,0 +1,121 @@
+import OpenGL.GL as gl 
+import OpenGL.GLUT as glut 
+import OpenGL.GLU as glu 
+
+modo_ver = 1
+
+def Camera(): 
+    gl.glMatrixMode(gl.GL_PROJECTION) 
+    gl.glLoadIdentity() 
+    glu.gluPerspective(30.0, 1.0, 0.1, 100)
+    gl.glMatrixMode(gl.GL_MODELVIEW) 
+    gl.glLoadIdentity() 
+
+    global modo_ver
+
+    #Três ângulos de visão diferentes
+    if modo_ver == 1:
+        glu.gluLookAt(2, 2, 4,  0, 0, 0,  0, 1, 0)
+    elif modo_ver == 2:
+        glu.gluLookAt(3, 3, 3,  0, 0, 0,  0, 1, 0)
+    elif modo_ver == 3:
+        glu.gluLookAt(4, 2, 1,  0, 0, 0,  0, 1, 0)
+
+def display(): 
+    glut.glutSwapBuffers() 
+    gl.glClear(gl.GL_COLOR_BUFFER_BIT | gl.GL_DEPTH_BUFFER_BIT)
+    gl.glDisable(gl.GL_CULL_FACE)
+    gl.glEnable(gl.GL_DEPTH_TEST)
+    gl.glClearColor(1.0, 1.0, 1.0, 1.0) 
+
+    Camera() 
+    gl.glBegin(gl.GL_QUADS)
+
+    #Face frontal(vermelho)
+    gl.glColor3f(1, 0, 0)
+    gl.glVertex3f(-0.6, -0.3, 0.2)
+    gl.glVertex3f(0.6, -0.3, 0.2)
+    gl.glVertex3f(0.6, 0.3, 0.2)
+    gl.glVertex3f(-0.6, 0.3, 0.2)
+
+    #Face traseira(verde)
+    gl.glColor3f(0, 1, 0)
+    gl.glVertex3f(-0.6, -0.3, -0.2)
+    gl.glVertex3f(-0.6, 0.3, -0.2)
+    gl.glVertex3f(0.6, 0.3, -0.2)
+    gl.glVertex3f(0.6, -0.3, -0.2)
+
+    #Face superior(azul)
+    gl.glColor3f(0, 0, 1)
+    gl.glVertex3f(-0.6,  0.3, -0.2)
+    gl.glVertex3f(-0.6, 0.3, 0.2)
+    gl.glVertex3f(0.6, 0.3, 0.2)
+    gl.glVertex3f(0.6, 0.3, -0.2)
+
+    #Face inferior(amarelo)
+    gl.glColor3f(1, 1, 0)
+    gl.glVertex3f(-0.6, -0.3, -0.2)
+    gl.glVertex3f(0.6, -0.3, -0.2)
+    gl.glVertex3f(0.6, -0.3, 0.2)
+    gl.glVertex3f(-0.6, -0.3, 0.2)
+
+    #Face direita(roxo)
+    gl.glColor3f(1, 0, 1)
+    gl.glVertex3f(0.6, -0.3, -0.2)
+    gl.glVertex3f(0.6, 0.3, -0.2)
+    gl.glVertex3f(0.6, 0.3, 0.2)
+    gl.glVertex3f(0.6, -0.3, 0.2)
+
+    #Face esquerda(ciano)
+    gl.glColor3f(0, 1, 1)
+    gl.glVertex3f(-0.6, -0.3, -0.2)
+    gl.glVertex3f(-0.6, -0.3, 0.2)
+    gl.glVertex3f(-0.6, 0.3, 0.2)
+    gl.glVertex3f(-0.6, 0.3, -0.2)
+
+    gl.glEnd()
+    gl.glBegin(gl.GL_LINES)
+    
+    #Eixo X
+    gl.glColor3f(0.0, 0.0, 0.0)
+    gl.glVertex3f(-2.0, 0.0, 0.0)
+    gl.glColor3f(1.0, 0.0, 0.0)
+    gl.glVertex3f(2.0, 0.0, 0.0)
+
+    #Eixo Y
+    gl.glColor3f(0.0, 0.0, 0.0)
+    gl.glVertex3f(0.0, -2.0, 0.0)
+    gl.glColor3f(0.0, 1.0, 0.0)
+    gl.glVertex3f(0.0, 2.0, 0.0)
+
+    #Eixo Z
+    gl.glColor3f(0.0, 0.0, 0.0)
+    gl.glVertex3f(0.0, 0.0, -2.0)
+    gl.glColor3f(0.0, 0.0, 1.0)
+    gl.glVertex3f(0.0, 0.0, 2.0)
+
+    gl.glEnd()
+    gl.glFlush() 
+    glut.glutSwapBuffers()
+
+def keyboard(key, x, y):
+    global modo_ver
+
+    if key == b'1':
+        modo_ver = 1  
+    elif key == b'2':
+        modo_ver = 2  
+    elif key == b'3':
+        modo_ver = 3 
+    elif key == b'\x1b': #ESC para sair
+        glut.glutLeaveMainLoop()
+
+    glut.glutPostRedisplay()
+
+glut.glutInit() 
+glut.glutInitDisplayMode(glut.GLUT_DOUBLE | glut.GLUT_SINGLE | glut.GLUT_RGBA) 
+glut.glutCreateWindow(b'Felipe Freire') 
+glut.glutReshapeWindow(512, 512) 
+glut.glutDisplayFunc(display)
+glut.glutKeyboardFunc(keyboard) 
+glut.glutMainLoop()
