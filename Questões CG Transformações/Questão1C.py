@@ -2,6 +2,8 @@ import OpenGL.GL as gl
 import OpenGL.GLUT as glut
 import OpenGL.GLU as glu
 
+#aplicar escala em tres objetos
+
 escala_esfera_verde = [1.0, 1.0, 1.0]
 escala_esfera_azul = [1.0, 1.0, 1.0]
 escala_esfera_vermelha = [1.0, 1.0, 1.0]

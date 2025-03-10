@@ -1,6 +1,8 @@
 import OpenGL.GL as gl
 import OpenGL.GLUT as glut
 
+#aplicar translação e rotação em um losango
+
 translacao_y = 0.0 
 rotacao_x = 0.0
 

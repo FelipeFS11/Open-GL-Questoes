@@ -2,10 +2,12 @@ import OpenGL.GL as gl
 import OpenGL.GLUT as glut
 import OpenGL.GLU as glu
 
+#aplicar rotação em objeto 3d qualuer
+
 rotacao_x = 0.0
 
 def keyboard(key, x, y):
-    global translacao_y, rotacao_x
+    global rotacao_x
 
     if key == b'r':  # Rotação no sentido horário no eixo X
         rotacao_x += 3.0

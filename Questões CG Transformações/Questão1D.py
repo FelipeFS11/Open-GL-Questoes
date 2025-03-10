@@ -1,6 +1,8 @@
 import OpenGL.GL as gl
 import OpenGL.GLUT as glut
 
+#aplicar espelhamento
+ 
 espelhamento_x = 1
 espelhamento_y = 1
 

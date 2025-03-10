@@ -3,6 +3,8 @@ import OpenGL.GLUT as glut
 import OpenGL.GLU as glu
 import numpy as np
 
+#aplicar cisalahmento em uma esfera
+
 cisalhamento = 0
 
 def desenha_eixos():
